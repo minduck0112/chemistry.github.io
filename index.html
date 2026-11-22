@@ -139,7 +139,11 @@ sub, sup { line-height: 0; }
   text-decoration: none;
   min-width: 0;
   border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.18s ease;
 }
+.brand:hover .brand-text strong,
+.brand:focus-visible .brand-text strong { color: var(--teal-700); }
 
 .brand-mark {
   width: 40px;
@@ -151,6 +155,12 @@ sub, sup { line-height: 0; }
   background: linear-gradient(145deg, var(--teal), #0a5a54);
   border-radius: 12px;
   box-shadow: 0 8px 18px -12px rgba(14, 124, 116, 0.9);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.brand:hover .brand-mark,
+.brand:focus-visible .brand-mark {
+  transform: scale(1.04);
+  box-shadow: 0 12px 22px -10px rgba(14, 124, 116, 0.95);
 }
 .brand-mark svg { width: 24px; height: 24px; }
 
@@ -159,6 +169,7 @@ sub, sup { line-height: 0; }
   font-size: 0.95rem;
   letter-spacing: 0.02em;
   white-space: nowrap;
+  transition: color 0.18s ease;
 }
 .brand-text small {
   font-size: 0.72rem;
@@ -1393,8 +1404,8 @@ td strong { color: var(--ink); }
   .article ul, .article ol { font-size: 0.9rem; }
   .definition { padding: 17px 16px 17px 18px; }
   .callout { padding: 13px 14px 13px 40px; }
-  .callout::before { left: 14px; }
-  .callout::after { left: 20px; }
+  .callout::before { left: 14px; top: 16px; }
+  .callout::after { left: 20px; top: 21px; }
   .eq-line { font-size: 0.92rem; }
   .equation-card { padding: 14px; }
   .tree-row { grid-template-columns: 1fr; gap: 5px; }
@@ -1489,8 +1500,10 @@ body.is-mm-panning * {
   color: var(--ink);
   flex: 0 0 auto;
   border-radius: 12px;
+  cursor: pointer;
 }
-.mm-brand:hover .mm-brand-text strong { color: var(--teal-700); }
+.mm-brand:hover .mm-brand-text strong,
+.mm-brand:focus-visible .mm-brand-text strong { color: var(--teal-700); }
 
 .mm-logo {
   display: grid;
@@ -1501,6 +1514,12 @@ body.is-mm-panning * {
   color: #fff;
   background: linear-gradient(145deg, #0d4f49, #12857c);
   box-shadow: 0 10px 20px -12px rgba(7, 63, 59, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.mm-brand:hover .mm-logo,
+.mm-brand:focus-visible .mm-logo {
+  transform: scale(1.04);
+  box-shadow: 0 12px 24px -10px rgba(7, 63, 59, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .mm-logo svg { width: 21px; height: 21px; }
 
@@ -1747,9 +1766,11 @@ body.is-mm-panning * {
   position: absolute;
   transform: translate(-50%, -50%);
   z-index: 3;
+  visibility: visible;
   transition: left 0.44s cubic-bezier(0.22, 0.9, 0.24, 1),
               top 0.44s cubic-bezier(0.22, 0.9, 0.24, 1),
-              opacity 0.24s ease;
+              opacity 0.24s ease,
+              visibility 0s linear 0s;
 }
 .mm-node-wrap--d0 { z-index: 9; }
 .mm-node-wrap--d1 { z-index: 7; }
@@ -1758,7 +1779,12 @@ body.is-mm-panning * {
 
 .mm-node-wrap.is-hidden {
   opacity: 0 !important;
+  visibility: hidden;
   pointer-events: none;
+  transition: left 0.44s cubic-bezier(0.22, 0.9, 0.24, 1),
+              top 0.44s cubic-bezier(0.22, 0.9, 0.24, 1),
+              opacity 0.24s ease,
+              visibility 0s linear 0.24s;
 }
 .mm-node-wrap.is-dim { opacity: 0.26; }
 .mm-node-wrap.is-dim:hover { opacity: 0.7; }
@@ -2087,26 +2113,6 @@ body.is-mm-panning * {
 
 .mm-app.has-panel .mm-hud { opacity: 0; pointer-events: none; transform: translateY(6px); }
 
-.mm-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 18px;
-  z-index: 15;
-  transform: translateX(-50%);
-  padding: 6px 14px;
-  border: 1px solid rgba(195, 219, 217, 0.85);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  color: var(--muted);
-  font-size: 0.68rem;
-  white-space: nowrap;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  pointer-events: none;
-  transition: opacity 0.6s ease;
-}
-.mm-hint.is-faded { opacity: 0; }
-
 /* ---------- Bảng chi tiết ---------- */
 .mm-panel {
   --c: #0e7c74;
@@ -2229,9 +2235,11 @@ body.is-mm-panning * {
 .mm-panel-body.article ul, .mm-panel-body.article ol { margin: 0 0 12px; padding-left: 18px; font-size: 0.82rem; }
 .mm-panel-body.article li { margin-bottom: 4px; }
 .mm-panel-body.article .definition,
-.mm-panel-body.article .callout,
 .mm-panel-body.article .example,
 .mm-panel-body.article .equation-card { padding: 11px 12px; margin: 10px 0; border-radius: 11px; }
+.mm-panel-body.article .callout { padding: 11px 12px 11px 36px; margin: 10px 0; border-radius: 11px; }
+.mm-panel-body.article .callout::before { left: 11px; top: 13px; }
+.mm-panel-body.article .callout::after { left: 17px; top: 18px; }
 .mm-panel-body.article .definition p,
 .mm-panel-body.article .callout,
 .mm-panel-body.article .example-body p { font-size: 0.81rem; }
@@ -2418,17 +2426,23 @@ body.is-mm-panning * {
   }
   .mm-legend.is-open { z-index: 25; }
   .mm-legend-toggle {
+    position: relative;
     padding: 6px 8px;
     gap: 5px;
     border-radius: 10px;
     font-size: 0.6rem;
     min-height: 32px;
   }
+  .mm-legend-toggle::after {
+    content: "";
+    position: absolute;
+    inset: -7px -5px;
+  }
   .mm-legend-toggle svg { width: 10px; height: 10px; }
   .mm-legend-dots { gap: 2px; }
   .mm-legend-dots i { width: 5px; height: 5px; }
-  .mm-legend-list { flex-direction: row; flex-wrap: wrap; gap: 4px; padding: 6px 6px 2px; }
-  .mm-legend-item { width: auto; white-space: nowrap; font-size: 0.65rem; padding: 4px 7px; border: 1px solid #e4eeec; }
+  .mm-legend-list { flex-direction: row; flex-wrap: wrap; gap: 4px; padding: 6px 6px 2px; max-height: 44vh; overflow-y: auto; }
+  .mm-legend-item { width: auto; white-space: nowrap; font-size: 0.65rem; padding: 5px 8px; border: 1px solid #e4eeec; }
   .mm-legend-count { display: none; }
   .mm-hud {
     right: 8px;
@@ -2438,19 +2452,38 @@ body.is-mm-panning * {
     gap: 5px;
   }
   .mm-minimap { display: none; }
-  .mm-hint { display: none; }
   .mm-viewbtns { display: flex; gap: 4px; order: 1; }
   .mm-viewbtn[data-mm-act="reset"] { display: none; }
   .mm-viewbtn {
+    position: relative;
     height: 32px;
     padding: 0 8px;
     border-radius: 8px;
     font-size: 0.61rem;
     white-space: nowrap;
   }
-  .mm-zoom { order: 2; border-radius: 8px; }
-  .mm-zoom button { height: 32px; min-width: 27px; padding: 0 4px; font-size: 0.82rem; }
+  .mm-viewbtn::after {
+    content: "";
+    position: absolute;
+    inset: -7px -3px;
+  }
+  .mm-zoom { order: 2; border-radius: 8px; overflow: visible; }
+  .mm-zoom button {
+    position: relative;
+    height: 32px;
+    min-width: 27px;
+    padding: 0 4px;
+    font-size: 0.82rem;
+  }
+  .mm-zoom button:first-child { border-radius: 8px 0 0 8px; }
+  .mm-zoom button:last-child { border-radius: 0 8px 8px 0; }
+  .mm-zoom button::after {
+    content: "";
+    position: absolute;
+    inset: -7px -2px;
+  }
   .mm-zoom-label { min-width: 40px; font-size: 0.61rem !important; }
+  .mm-caret::after { inset: -10px; }
   .mm-panel {
     top: auto;
     left: 8px;
@@ -2521,7 +2554,7 @@ body.is-mm-panning * {
      ============================================================ -->
 <header class="site-header">
   <div class="header-inner">
-    <a class="brand" href="#/" data-nav-home>
+    <a class="brand" href="#/" data-nav-home title="Chuyển về sơ đồ tư duy" aria-label="Chuyển về sơ đồ tư duy">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4Z"/>
@@ -2531,8 +2564,8 @@ body.is-mm-panning * {
         </svg>
       </span>
       <span class="brand-text">
-        <strong>Hóa học 12</strong>
-        <small>Đại cương về polymer</small>
+        <strong>Đại cương về polymer</strong>
+        <small>Hóa học 12</small>
       </span>
     </a>
     <nav class="header-nav" aria-label="Điều hướng chính">
@@ -2558,7 +2591,7 @@ body.is-mm-panning * {
     <div class="mm-app" id="mm-app">
       <!-- Thanh công cụ -->
       <div class="mm-topbar">
-        <a class="mm-brand" href="#/" data-mm-home>
+        <a class="mm-brand" href="#/khai-niem" data-mm-home title="Chuyển sang bài đầy đủ: Khái niệm và phân loại polymer" aria-label="Chuyển sang bài đầy đủ: Khái niệm và phân loại polymer">
           <span class="mm-logo" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="2.4"/>
@@ -2569,8 +2602,8 @@ body.is-mm-panning * {
             </svg>
           </span>
           <span class="mm-brand-text">
-            <strong>Polymer Atlas</strong>
-            <small>Đại cương về polymer · Hóa học 12</small>
+            <strong>Đại cương về polymer</strong>
+            <small>Hóa học 12</small>
           </span>
         </a>
 
@@ -2638,8 +2671,6 @@ body.is-mm-panning * {
           </div>
         </div>
 
-        <p class="mm-hint" id="mm-hint">Kéo nền để di chuyển · Lăn chuột để thu phóng · Chọn một nút để xem chi tiết · Nhấp đúp để mở nhánh</p>
-
         <!-- Bảng chi tiết -->
         <aside class="mm-panel" id="mm-panel" role="complementary" aria-labelledby="mm-panel-title" tabindex="-1" hidden>
           <div class="mm-panel-head">
@@ -2695,21 +2726,12 @@ body.is-mm-panning * {
           Polymer là gì? Vì sao một phân tử có thể chứa hàng nghìn, thậm chí hàng triệu
           nguyên tử? Bài học này xây dựng những khái niệm gốc để hiểu toàn bộ chủ đề.
         </p>
-        <div class="page-meta">
-          <span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Khoảng 12 phút</span>
-          <span class="meta-tag">5 mục kiến thức</span>
-          <span class="meta-tag">Có ví dụ minh họa</span>
-        </div>
       </header>
 
       <div class="content-grid">
         <aside class="toc-card">
           <p class="toc-label">Mục lục bài học</p>
           <nav class="toc" aria-label="Mục lục bài Khái niệm và phân loại"></nav>
-          <a class="toc-home" href="#/">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-            Về sơ đồ tư duy
-          </a>
         </aside>
 
         <article class="article">
@@ -3035,13 +3057,6 @@ body.is-mm-panning * {
               <strong>(3)</strong> n trong công thức không phải một hằng số cố định cho mọi phân tử,
               mà là giá trị trung bình đặc trưng cho mẫu polymer.
             </div>
-
-            <div class="callout extra">
-              <span class="callout-title">Mở rộng – Vì sao gọi là “đại phân tử”?</span>
-              Phân tử polymer có thể chứa hàng trăm nghìn đến hàng triệu nguyên tử. Ví dụ,
-              một phân tử cellulose có thể gồm hàng nghìn đơn vị glucose liên kết với nhau.
-              Kích thước lớn là nguyên nhân chính tạo nên những tính chất đặc biệt của polymer.
-            </div>
           </section>
         </article>
       </div>
@@ -3076,21 +3091,12 @@ body.is-mm-panning * {
           Cùng là polyethylene nhưng túi nilon mềm mại còn ống nước lại cứng chắc.
           Sự khác biệt nằm ở cấu tạo mạch, cách sắp xếp mắt xích và mức độ kết tinh.
         </p>
-        <div class="page-meta">
-          <span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Khoảng 13 phút</span>
-          <span class="meta-tag">6 mục kiến thức</span>
-          <span class="meta-tag">Có sơ đồ cấu trúc</span>
-        </div>
       </header>
 
       <div class="content-grid">
         <aside class="toc-card">
           <p class="toc-label">Mục lục bài học</p>
           <nav class="toc" aria-label="Mục lục bài Cấu tạo và tính chất vật lí"></nav>
-          <a class="toc-home" href="#/">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-            Về sơ đồ tư duy
-          </a>
         </aside>
 
         <article class="article">
@@ -3183,21 +3189,10 @@ body.is-mm-panning * {
 
             <h3>Đồng phân lập thể</h3>
             <p>
-              Với polymer có nhóm thế gắn vào carbon của mạch chính, cách sắp xếp nhóm thế
-              so với mặt phẳng mạch tạo ra các dạng:
+              Với polymer có nhóm thế gắn vào carbon của mạch chính, nhóm thế có thể sắp xếp
+              đều đặn (cùng phía hoặc luân phiên) giúp mạch dễ kết tinh, cứng và bền hơn;
+              ngược lại, sắp xếp ngẫu nhiên làm vật liệu mềm và khó kết tinh hơn.
             </p>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr><th>Dạng</th><th>Cách sắp xếp nhóm thế</th><th>Ảnh hưởng</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td>Isotactic<br><small>(đồng đều)</small></td><td>Tất cả nhóm thế nằm cùng một phía của mạch</td><td>Dễ kết tinh, vật liệu cứng và bền hơn</td></tr>
-                  <tr><td>Syndiotactic<br><small>(luân phiên)</small></td><td>Nhóm thế luân phiên hai phía</td><td>Có thể kết tinh, tính chất trung gian</td></tr>
-                  <tr><td>Atactic<br><small>(ngẫu nhiên)</small></td><td>Nhóm thế sắp xếp ngẫu nhiên</td><td>Khó kết tinh, mềm, trong suốt hơn</td></tr>
-                </tbody>
-              </table>
-            </div>
 
             <h3>Đồng phân cis – trans</h3>
             <p>
@@ -3216,13 +3211,6 @@ body.is-mm-panning * {
                 Liên kết đôi trong mạch là vị trí có thể xảy ra phản ứng cộng, đồng thời là
                 điểm yếu khiến cao su dễ bị oxi hóa, lão hóa.
               </p>
-            </div>
-
-            <div class="callout extra">
-              <span class="callout-title">Mở rộng – Vì sao cấu trúc lập thể quan trọng?</span>
-              Tính chất của polypropylene phụ thuộc mạnh vào tỉ lệ các dạng lập thể. PP
-              isotactic có nhiệt độ nóng chảy và độ cứng cao, dùng làm hộp thực phẩm, chi
-              tiết ô tô; PP atactic mềm, ít được dùng làm vật liệu kết cấu.
             </div>
           </section>
 
@@ -3270,14 +3258,6 @@ body.is-mm-panning * {
               xếp trật tự) và vùng <strong>vô định hình</strong> (mạch sắp xếp lộn xộn). Vùng
               kết tinh làm vật liệu cứng hơn, trong khi vùng vô định hình tạo độ dẻo.
             </p>
-
-            <div class="callout extra">
-              <span class="callout-title">Mở rộng – Nhiệt độ chuyển thủy tinh T<sub>g</sub></span>
-              Với polymer vô định hình, khi hạ nhiệt độ xuống dưới một giá trị gọi là nhiệt
-              độ chuyển thủy tinh (T<sub>g</sub>), vật liệu chuyển từ trạng thái mềm, dẻo sang
-              cứng, giòn. Đây là khái niệm quan trọng trong chế tạo vật liệu, được học sâu hơn
-              ở bậc đại học.
-            </div>
           </section>
 
           <section class="topic" id="nhiet-deo-nhiet-ran">
@@ -3385,21 +3365,12 @@ body.is-mm-panning * {
           bội, nhóm chức hoặc giữa các mạch. Ba nhóm phản ứng cần nắm: giữ nguyên mạch,
           phân cắt mạch và tăng mạch.
         </p>
-        <div class="page-meta">
-          <span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Khoảng 15 phút</span>
-          <span class="meta-tag">6 mục kiến thức</span>
-          <span class="meta-tag">Nhiều phương trình</span>
-        </div>
       </header>
 
       <div class="content-grid">
         <aside class="toc-card">
           <p class="toc-label">Mục lục bài học</p>
           <nav class="toc" aria-label="Mục lục bài Tính chất hóa học"></nav>
-          <a class="toc-home" href="#/">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-            Về sơ đồ tư duy
-          </a>
         </aside>
 
         <article class="article">
@@ -3759,21 +3730,12 @@ body.is-mm-panning * {
           Có hai con đường chính để nối các phân tử nhỏ thành polymer: trùng hợp và trùng
           ngưng. Điểm khác biệt cốt lõi nằm ở điều kiện monomer và sản phẩm phụ của phản ứng.
         </p>
-        <div class="page-meta">
-          <span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Khoảng 15 phút</span>
-          <span class="meta-tag">6 mục kiến thức</span>
-          <span class="meta-tag">Có bảng so sánh</span>
-        </div>
       </header>
 
       <div class="content-grid">
         <aside class="toc-card">
           <p class="toc-label">Mục lục bài học</p>
           <nav class="toc" aria-label="Mục lục bài Điều chế polymer"></nav>
-          <a class="toc-home" href="#/">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-            Về sơ đồ tư duy
-          </a>
         </aside>
 
         <article class="article">
@@ -3961,14 +3923,6 @@ body.is-mm-panning * {
                 mạch polyamide bền, dai (viết gọn không ghi nhóm đầu mạch, tách 2n H<sub>2</sub>O ứng với n cặp monomer).
               </p>
             </div>
-
-            <div class="callout extra">
-              <span class="callout-title">Mở rộng – Trùng hợp mở vòng</span>
-              Nilon-6 có thể được điều chế bằng cách trùng hợp mở vòng caprolactam. Phản ứng
-              này không sinh ra phân tử nhỏ nên về bản chất gần với trùng hợp, dù monomer là
-              hợp chất vòng. Đây là ví dụ cho thấy cần xét bản chất phản ứng, không chỉ dựa
-              vào tên gọi.
-            </div>
           </section>
 
           <section class="topic" id="so-sanh">
@@ -4046,13 +4000,6 @@ body.is-mm-panning * {
               <li><strong>Tỉ lệ monomer:</strong> trong đồng trùng hợp, tỉ lệ này quyết định thành phần và tính chất sản phẩm.</li>
               <li><strong>Thời gian:</strong> ảnh hưởng đến hệ số trùng hợp và độ phân bố phân tử khối.</li>
             </ul>
-
-            <div class="callout">
-              <span class="callout-title">Liên hệ thực tế</span>
-              Cùng là polyethylene nhưng điều kiện trùng hợp khác nhau (xúc tác, nhiệt độ, áp
-              suất) cho ra LDPE mềm dẻo hoặc HDPE cứng chắc. Điều này giải thích vì sao cùng
-              một loại polymer lại có nhiều ứng dụng khác nhau.
-            </div>
           </section>
         </article>
       </div>
@@ -4087,21 +4034,12 @@ body.is-mm-panning * {
           PE, PVC, PET, PMMA, cao su, tơ nilon… mỗi loại có một “tính cách” riêng. Hiểu cấu
           trúc và tính chất giúp ta chọn đúng vật liệu cho từng mục đích sử dụng.
         </p>
-        <div class="page-meta">
-          <span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Khoảng 16 phút</span>
-          <span class="meta-tag">6 mục kiến thức</span>
-          <span class="meta-tag">Có thẻ ghi nhớ</span>
-        </div>
       </header>
 
       <div class="content-grid">
         <aside class="toc-card">
           <p class="toc-label">Mục lục bài học</p>
           <nav class="toc" aria-label="Mục lục bài Polymer quan trọng"></nav>
-          <a class="toc-home" href="#/">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-            Về sơ đồ tư duy
-          </a>
         </aside>
 
         <article class="article">
@@ -4228,12 +4166,6 @@ body.is-mm-panning * {
                   <tr><td>Nitron</td><td>Tổng hợp, polyacrylonitrile</td><td>Mềm, nhẹ, giữ nhiệt tốt, bền ánh sáng</td><td>Len nhân tạo, áo ấm, thảm</td></tr>
                 </tbody>
               </table>
-            </div>
-
-            <div class="callout">
-              <span class="callout-title">Tơ lapsan là gì?</span>
-              Tơ lapsan chính là sợi được kéo từ PET. Cùng một polymer có thể dùng làm chai
-              nhựa (PET) hoặc kéo thành sợi (lapsan), tùy công nghệ gia công.
             </div>
           </section>
 
@@ -4460,13 +4392,6 @@ body.is-mm-panning * {
               len tự nhiên dù có cảm giác mềm tương tự. <strong>(3)</strong> Cao su lưu hóa
               không còn là nhiệt dẻo nên không thể nấu chảy để tái chế như PE, PET.
             </div>
-
-            <div class="callout extra">
-              <span class="callout-title">Mở rộng – Chọn vật liệu theo mục đích</span>
-              Chai nước cần trong, kín, chịu lực nên dùng PET. Hộp đựng thức ăn nóng cần chịu
-              nhiệt tốt nên dùng PP. Kính xe cần trong và chống vỡ nên dùng PMMA hoặc vật liệu
-              composite. Việc chọn polymer luôn gắn với điều kiện sử dụng cụ thể.
-            </div>
           </section>
         </article>
       </div>
@@ -4501,53 +4426,24 @@ body.is-mm-panning * {
           Polymer mang lại vật liệu nhẹ, bền, tiện dụng nhưng cũng tạo ra lượng rác thải khó
           phân hủy. Hiểu đúng về vật liệu và tác động môi trường giúp ta sử dụng polymer bền vững.
         </p>
-        <div class="page-meta">
-          <span class="meta-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Khoảng 14 phút</span>
-          <span class="meta-tag">6 mục kiến thức</span>
-          <span class="meta-tag">Có kí hiệu tái chế</span>
-        </div>
       </header>
 
       <div class="content-grid">
         <aside class="toc-card">
           <p class="toc-label">Mục lục bài học</p>
           <nav class="toc" aria-label="Mục lục bài Vật liệu polymer và môi trường"></nav>
-          <a class="toc-home" href="#/">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
-            Về sơ đồ tư duy
-          </a>
         </aside>
 
         <article class="article">
           <section class="topic" id="vat-lieu">
             <h2>1. Vật liệu polymer</h2>
             <p>
-              Polymer là chất nền, nhưng vật liệu polymer thực tế còn có phụ gia và chất gia
-              cố. Cùng một polymer có thể tạo ra nhiều vật liệu khác nhau tùy cách phối trộn
-              và gia công.
+              Vật liệu polymer được tạo thành từ polymer nền phối trộn với phụ gia (chất độn,
+              chất hóa dẻo, chất ổn định nhiệt…) hoặc chất gia cố, chia thành năm nhóm chính đã
+              xét ở bài trước: <strong>chất dẻo, tơ, cao su, keo dán</strong> và
+              <strong>composite</strong>. Tùy thành phần và cách gia công, cùng một polymer có
+              thể tạo ra sản phẩm có độ cứng, độ đàn hồi và khả năng tái chế khác nhau.
             </p>
-
-            <div class="table-wrap">
-              <table>
-                <caption>Năm nhóm vật liệu polymer thường gặp</caption>
-                <thead>
-                  <tr><th>Vật liệu</th><th>Thành phần chính</th><th>Đặc trưng</th><th>Ví dụ</th></tr>
-                </thead>
-                <tbody>
-                  <tr><td><strong>Chất dẻo</strong></td><td>Polymer + phụ gia</td><td>Dễ tạo hình, nhẹ, cách điện</td><td>Túi PE, ống PVC, chai PET</td></tr>
-                  <tr><td><strong>Tơ</strong></td><td>Polymer mạch thẳng</td><td>Mềm, dai, kéo thành sợi</td><td>Nilon, lapsan, bông, tơ tằm</td></tr>
-                  <tr><td><strong>Cao su</strong></td><td>Polymer đàn hồi</td><td>Biến dạng đàn hồi, chịu mài mòn</td><td>Lốp xe, gioăng, găng tay</td></tr>
-                  <tr><td><strong>Keo dán</strong></td><td>Polymer kết dính</td><td>Bám dính bề mặt, đóng rắn</td><td>Epoxy, keo dán gỗ, keo nóng chảy</td></tr>
-                  <tr><td><strong>Composite</strong></td><td>Sợi gia cố + nền polymer</td><td>Nhẹ, cứng, bền</td><td>Vỏ tàu, cánh quạt, khung xe đạp</td></tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="callout">
-              <span class="callout-title">Phân biệt polymer và vật liệu polymer</span>
-              Polymer là hợp chất đại phân tử; vật liệu polymer là sản phẩm thực tế được tạo
-              ra từ polymer cùng phụ gia. Ví dụ, PVC là polymer; ống nhựa PVC là vật liệu.
-            </div>
           </section>
 
           <section class="topic" id="uu-nhuoc">
@@ -4573,13 +4469,6 @@ body.is-mm-panning * {
                   <li>Gây áp lực lên hệ thống thu gom và tái chế.</li>
                 </ul>
               </div>
-            </div>
-
-            <div class="callout extra">
-              <span class="callout-title">Góc nhìn cân bằng</span>
-              Không thể phủ nhận vai trò của polymer trong y tế, bảo quản thực phẩm, giao thông
-              và tiết kiệm năng lượng. Vấn đề không phải là loại bỏ hoàn toàn polymer, mà là
-              sản xuất, sử dụng và xử lý sau sử dụng một cách có trách nhiệm.
             </div>
           </section>
 
@@ -4612,18 +4501,6 @@ body.is-mm-panning * {
                 <h3>Phát thải khi đốt</h3>
                 <p>Đốt nhựa không kiểm soát có thể tạo khí độc, bụi mịn; PVC cháy có thể sinh HCl và dioxin.</p>
               </div>
-            </div>
-
-            <p>
-              Ngoài rác thải, quá trình sản xuất polymer từ dầu mỏ và khí tự nhiên tiêu thụ
-              năng lượng và phát thải khí nhà kính. Vì vậy, giảm tiêu thụ và tăng tái chế đều
-              có ý nghĩa.
-            </p>
-
-            <div class="callout warn">
-              <span class="callout-title">Không đốt rác nhựa tại nhà</span>
-              Đốt túi nilon, ống nhựa hay vỏ hộp trong không gian kín tạo ra khói độc. Rác
-              nhựa cần được thu gom và xử lý đúng quy định; không tự đốt.
             </div>
           </section>
 
@@ -4678,51 +4555,15 @@ body.is-mm-panning * {
               nhanh trong điều kiện công nghiệp (nhiệt độ, độ ẩm kiểm soát), không phải chỉ
               cần vứt ra môi trường.
             </p>
-
-            <div class="callout note">
-              <span class="callout-title">Hiểu đúng về “phân hủy sinh học”</span>
-              Nhựa phân hủy sinh học không phải giải pháp thay thế hoàn toàn cho việc giảm
-              tiêu thụ. Nếu bị thải bừa bãi, chúng vẫn gây ô nhiễm trong thời gian phân hủy.
-              Cần đọc hướng dẫn xử lý của nhà sản xuất và phân loại đúng.
-            </div>
           </section>
 
           <section class="topic" id="ben-vung">
             <h2>5. Sử dụng polymer bền vững</h2>
-            <p>
-              Mỗi cá nhân, gia đình và cộng đồng đều có thể giảm tác động của rác thải nhựa
-              bằng những hành động đơn giản, thiết thực.
-            </p>
-
-            <div class="card-grid">
-              <div class="info-card">
-                <span class="card-tag">01</span>
-                <h3>Mang theo vật dụng</h3>
-                <p>Dùng túi vải, bình nước, hộp đựng cá nhân để giảm túi và chai dùng một lần.</p>
-              </div>
-              <div class="info-card">
-                <span class="card-tag">02</span>
-                <h3>Phân loại tại nguồn</h3>
-                <p>Tách nhựa tái chế, rác hữu cơ và rác còn lại; làm sạch vỏ chai trước khi bỏ.</p>
-              </div>
-              <div class="info-card">
-                <span class="card-tag">03</span>
-                <h3>Chọn sản phẩm bền</h3>
-                <p>Ưu tiên đồ dùng có thể sửa chữa, tái sử dụng; tránh bao bì thừa.</p>
-              </div>
-              <div class="info-card">
-                <span class="card-tag">04</span>
-                <h3>Lan tỏa thói quen</h3>
-                <p>Tuyên truyền trong gia đình, lớp học; tham gia hoạt động nhặt rác, tái chế.</p>
-              </div>
-            </div>
-
-            <div class="callout extra">
-              <span class="callout-title">Mở rộng – Kinh tế tuần hoàn</span>
-              Kinh tế tuần hoàn hướng tới việc giữ vật liệu trong vòng sử dụng càng lâu càng
-              tốt: thiết kế dễ tái chế, thu hồi sản phẩm cũ, tái sản xuất thay vì chôn lấp.
-              Đây là hướng đi được nhiều quốc gia áp dụng để giảm rác thải nhựa.
-            </div>
+            <ul>
+              <li><strong>Hạn chế nhựa dùng một lần:</strong> ưu tiên sản phẩm bền, tái sử dụng nhiều lần để giảm lượng polymer thải ra môi trường.</li>
+              <li><strong>Phân loại theo mã nhựa (1–7):</strong> tách riêng nhựa nhiệt dẻo (PET, HDPE, PP…) trước khi thu gom để nâng hiệu suất tái chế cơ học và hóa học.</li>
+              <li><strong>Xử lý đúng quy trình:</strong> không tự ý đốt rác nhựa (đặc biệt PVC vì có thể sinh HCl và dioxin); thay thế dần bằng polymer phân hủy sinh học phù hợp.</li>
+            </ul>
           </section>
 
           <section class="topic" id="tong-ket">
@@ -4749,28 +4590,6 @@ body.is-mm-panning * {
                   <tr><td>Môi trường</td><td>Rác thải nhựa, vi nhựa, tái chế, sử dụng bền vững</td><td>Ba mức ưu tiên xử lý rác thải là gì?</td></tr>
                 </tbody>
               </table>
-            </div>
-
-            <div class="example">
-              <div class="example-head">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5"/></svg>
-                Câu hỏi thảo luận
-              </div>
-              <div class="example-body">
-                <p>
-                  Một gia đình thường xuyên mua nước đóng chai và dùng túi nilon mỗi ngày.
-                  Hãy đề xuất ba thay đổi cụ thể giúp giảm lượng nhựa thải ra, đồng thời nêu
-                  lợi ích và khó khăn của từng thay đổi.
-                </p>
-                <div class="solution">
-                  <p>
-                    <strong>Gợi ý:</strong> (1) Dùng bình nước cá nhân và rót nước từ bình lớn
-                    — giảm chai PET nhưng cần rửa bình thường xuyên. (2) Mang túi vải khi đi
-                    chợ — giảm túi nilon nhưng cần nhớ mang theo. (3) Phân loại và bán vỏ chai
-                    cho điểm thu gom — tăng tái chế nhưng cần không gian và thói quen phân loại.
-                  </p>
-                </div>
-              </div>
             </div>
 
             <div class="quiz-cta home-panel" style="margin-top:22px">
@@ -4802,8 +4621,7 @@ body.is-mm-panning * {
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <p><strong>Đại cương về polymer</strong> · Học liệu tương tác Hóa học 12<br>
-    Biên soạn theo Chương trình Giáo dục phổ thông 2018, bộ sách <em>Kết nối tri thức với cuộc sống</em>.</p>
+    <p><strong>Đại cương về polymer</strong> · Hóa học 12 (CT GDPT 2018)</p>
     <nav class="footer-links" aria-label="Liên kết chân trang">
       <a href="#/">Sơ đồ tư duy</a>
       <button type="button" data-open-quiz>Ôn tập nhanh</button>
@@ -4911,6 +4729,38 @@ function activateView(element) {
   element.classList.add('is-active');
 }
 
+function resolveFullLessonTarget() {
+  const node = mmSelected ? mmNodes.get(mmSelected) : null;
+  if (node && node.page && PAGE_TITLES[node.page]) {
+    const hash = (node.section && node.depth >= 2)
+      ? '#/' + node.page + '/' + node.section
+      : '#/' + node.page;
+    return {
+      hash: hash,
+      label: PAGE_TITLES[node.page]
+    };
+  }
+  return {
+    hash: '#/khai-niem',
+    label: PAGE_TITLES['khai-niem']
+  };
+}
+
+function updateLogoAffordance() {
+  const target = resolveFullLessonTarget();
+  document.querySelectorAll('[data-mm-home]').forEach(function (link) {
+    link.href = target.hash;
+    const tip = 'Chuyển sang bài đầy đủ: ' + target.label;
+    link.title = tip;
+    link.setAttribute('aria-label', tip);
+  });
+  document.querySelectorAll('.brand[data-nav-home]').forEach(function (link) {
+    link.href = '#/';
+    link.title = 'Chuyển về sơ đồ tư duy';
+    link.setAttribute('aria-label', 'Chuyển về sơ đồ tư duy');
+  });
+}
+
 function showHome() {
   contentViews.forEach(function (view) {
     view.hidden = true;
@@ -4922,6 +4772,7 @@ function showHome() {
   scrollInstant(0);
   scrollProgress.style.width = '0%';
   mmEnter();
+  updateLogoAffordance();
 }
 
 function showPage(key, section, behavior) {
@@ -5112,7 +4963,7 @@ const MM_TREE = {
           summary: 'Cùng công thức nhưng khác cách sắp xếp mắt xích, dẫn đến tính chất khác nhau.',
           children: [
             { id: 'ct-dp-cau-tao', label: 'Đồng phân cấu tạo', h3: 'Đồng phân cấu tạo', summary: 'Khác nhau về thứ tự hoặc kiểu liên kết trong mạch.' },
-            { id: 'ct-dp-lap-the', label: 'Đồng phân lập thể', h3: 'Đồng phân lập thể', summary: 'Isotactic, syndiotactic, atactic – ảnh hưởng độ kết tinh.' },
+            { id: 'ct-dp-lap-the', label: 'Đồng phân lập thể', h3: 'Đồng phân lập thể', summary: 'Cách sắp xếp nhóm thế đều đặn hay ngẫu nhiên ảnh hưởng độ kết tinh.' },
             { id: 'ct-cis-trans', label: 'Đồng phân cis – trans', h3: 'Đồng phân cis', summary: 'Cis cho cao su đàn hồi; trans cứng hơn (gutta-percha).' }
           ]
         },
@@ -5374,7 +5225,7 @@ const MM_TREE = {
           id: 'ben-vung',
           label: 'Sử dụng bền vững',
           section: 'ben-vung',
-          summary: 'Mang theo vật dụng, phân loại tại nguồn, chọn sản phẩm bền và lan tỏa thói quen.'
+          summary: 'Hạn chế nhựa dùng một lần, phân loại theo mã 1–7 để tái chế và không đốt rác nhựa.'
         },
         {
           id: 'tong-ket',
@@ -5426,7 +5277,6 @@ const mmSearchInput = document.getElementById('mm-search-input');
 const mmResults = document.getElementById('mm-results');
 const mmSearchClear = document.getElementById('mm-search-clear');
 const mmStatus = document.getElementById('mm-status');
-const mmHint = document.getElementById('mm-hint');
 const mmMinimap = document.getElementById('mm-minimap');
 const mmMinimapCanvas = document.getElementById('mm-minimap-canvas');
 const mmLegendList = document.getElementById('mm-legend-list');
@@ -5481,8 +5331,12 @@ function mmApplyDefaultState() {
 /* ============================================================
    DỰNG NÚT
    ============================================================ */
+const mmNodeDom = new Map();
+const mmLastStageSize = { w: 0, h: 0 };
+
 function mmBuildNodes() {
   const fragment = document.createDocumentFragment();
+  mmNodeDom.clear();
   mmNodes.forEach(function (node) {
     const wrap = document.createElement('div');
     wrap.className = 'mm-node-wrap mm-node-wrap--d' + node.depth;
@@ -5525,8 +5379,9 @@ function mmBuildNodes() {
 
     wrap.appendChild(button);
 
+    let caret = null;
     if (node.depth > 0 && node.children && node.children.length) {
-      const caret = document.createElement('button');
+      caret = document.createElement('button');
       caret.type = 'button';
       caret.className = 'mm-caret';
       caret.dataset.mmCaret = node.id;
@@ -5534,7 +5389,11 @@ function mmBuildNodes() {
       wrap.appendChild(caret);
     }
 
-    if (node.depth > 0) wrap.classList.add('is-hidden');
+    if (node.depth > 0) {
+      wrap.classList.add('is-hidden');
+      wrap.setAttribute('aria-hidden', 'true');
+    }
+    mmNodeDom.set(node.id, { wrap: wrap, button: button, caret: caret });
     fragment.appendChild(wrap);
   });
   mmNodesEl.appendChild(fragment);
@@ -5612,8 +5471,8 @@ function mmPlace(node, depthIndex, top, cache, positions, sign) {
 
 function mmMeasureDom() {
   mmNodes.forEach(function (node) {
-    const wrap = mmNodeWrap(node.id);
-    const button = wrap && wrap.querySelector('.mm-node');
+    const dom = mmNodeDom.get(node.id);
+    const button = dom && dom.button;
     if (button) {
       node._w = button.offsetWidth || mmSizes.w[node.depth];
       node._h = button.offsetHeight || mmSizes.h[node.depth];
@@ -5641,9 +5500,12 @@ function mmIsNarrow() {
 
 function mmLayout() {
   if (!mmStage || document.getElementById('home').hidden) return;
+  if (!mmStage.clientWidth || !mmStage.clientHeight) return;
 
   const narrow = mmIsNarrow();
   mmWasNarrow = narrow;
+  mmLastStageSize.w = mmStage.clientWidth;
+  mmLastStageSize.h = mmStage.clientHeight;
   mmSizes.gap[1] = narrow ? 50 : 24;
   mmSizes.gap[2] = narrow ? 14 : 8;
   mmSizes.gap[3] = narrow ? 12 : 8;
@@ -5695,7 +5557,8 @@ function mmLayout() {
   const newlyVisible = [];
 
   positions.forEach(function (pos, id) {
-    const wrap = mmNodesEl.querySelector('[data-mm-node="' + id + '"]');
+    const dom = mmNodeDom.get(id);
+    const wrap = dom && dom.wrap;
     const node = mmNodes.get(id);
     if (!wrap) return;
 
@@ -5707,17 +5570,19 @@ function mmLayout() {
         wrap.style.top = parentPos.y + 'px';
       }
       wrap.classList.add('is-hidden');
+      wrap.removeAttribute('aria-hidden');
       newlyVisible.push({ wrap: wrap, pos: pos });
     } else {
       wrap.style.left = pos.x + 'px';
       wrap.style.top = pos.y + 'px';
       wrap.classList.remove('is-hidden');
+      wrap.removeAttribute('aria-hidden');
     }
     mmRendered.add(id);
     wrap.classList.toggle('mm-node-wrap--left', pos.x < -1);
     wrap.classList.toggle('is-collapsed', Boolean(node.children && node.children.length) && mmCollapsed.has(id));
 
-    const button = wrap.querySelector('.mm-node');
+    const button = dom.button;
     if (button) {
       if (node.depth > 0 && node.children && node.children.length) {
         button.setAttribute('aria-expanded', String(!mmCollapsed.has(id)));
@@ -5726,7 +5591,7 @@ function mmLayout() {
       }
     }
 
-    const caret = wrap.querySelector('.mm-caret');
+    const caret = dom.caret;
     if (caret) {
       const collapsed = mmCollapsed.has(id);
       caret.textContent = collapsed ? '+' + (node.children || []).length : '−';
@@ -5737,10 +5602,11 @@ function mmLayout() {
     }
   });
 
-  mmNodesEl.querySelectorAll('.mm-node-wrap').forEach(function (wrap) {
-    if (!positions.has(wrap.dataset.mmNode)) {
-      wrap.classList.add('is-hidden');
-      mmRendered.delete(wrap.dataset.mmNode);
+  mmNodeDom.forEach(function (dom, id) {
+    if (!positions.has(id)) {
+      dom.wrap.classList.add('is-hidden');
+      dom.wrap.setAttribute('aria-hidden', 'true');
+      mmRendered.delete(id);
     }
   });
 
@@ -5846,6 +5712,7 @@ function mmAvailableHeight() {
 }
 
 let mmLastCrispK = 1;
+let mmViewRaf = null;
 
 function mmRefreshVectorCrispness() {
   if (!mmLayer) return;
@@ -5862,6 +5729,10 @@ function mmRefreshVectorCrispness() {
 }
 
 function mmApplyView(animate) {
+  if (mmViewRaf) {
+    cancelAnimationFrame(mmViewRaf);
+    mmViewRaf = null;
+  }
   window.clearTimeout(mmApplyView._crispTimer);
   if (animate) {
     mmLayer.classList.add('is-anim');
@@ -5879,6 +5750,14 @@ function mmApplyView(animate) {
   }
   mmZoomLabel.textContent = Math.round(mmView.k * 100) + '%';
   mmDrawMinimap();
+}
+
+function mmScheduleView() {
+  if (mmViewRaf) return;
+  mmViewRaf = requestAnimationFrame(function () {
+    mmViewRaf = null;
+    mmApplyView(false);
+  });
 }
 
 function mmInitialView(animate) {
@@ -5983,14 +5862,18 @@ function mmEnsureVisible(id) {
   }
 }
 
-function mmZoomAt(px, py, factor) {
+function mmZoomAt(px, py, factor, deferred) {
   mmUserMoved = true;
   const nextK = mmClamp(mmView.k * factor, 0.2, 2.2);
   const ratio = nextK / mmView.k;
   mmView.x = px - (px - mmView.x) * ratio;
   mmView.y = py - (py - mmView.y) * ratio;
   mmView.k = nextK;
-  mmApplyView(false);
+  if (deferred) {
+    mmScheduleView();
+  } else {
+    mmApplyView(false);
+  }
 }
 
 function mmZoomBy(factor) {
@@ -6014,7 +5897,8 @@ function mmSetZoom(k, animate) {
    CHỌN, MỞ RỘNG, ĐƯỜNG DẪN
    ============================================================ */
 function mmNodeWrap(id) {
-  return mmNodesEl.querySelector('[data-mm-node="' + id + '"]');
+  const dom = mmNodeDom.get(id);
+  return dom ? dom.wrap : mmNodesEl.querySelector('[data-mm-node="' + id + '"]');
 }
 
 function mmPathIds(id) {
@@ -6030,10 +5914,9 @@ function mmPathIds(id) {
 function mmUpdatePath() {
   const path = mmSelected ? mmPathIds(mmSelected) : new Set();
 
-  mmNodesEl.querySelectorAll('.mm-node-wrap').forEach(function (wrap) {
-    const id = wrap.dataset.mmNode;
-    wrap.classList.toggle('is-active', id === mmSelected);
-    wrap.classList.toggle('is-path', id !== mmSelected && path.has(id));
+  mmNodeDom.forEach(function (dom, id) {
+    dom.wrap.classList.toggle('is-active', id === mmSelected);
+    dom.wrap.classList.toggle('is-path', id !== mmSelected && path.has(id));
   });
 
   mmEdges.querySelectorAll('.mm-edge').forEach(function (edge) {
@@ -6049,11 +5932,11 @@ function mmSelect(id, openPanel, opts) {
   mmSelected = id;
   mmUpdatePath();
 
-  const wrap = mmNodeWrap(id);
-  const button = wrap && wrap.querySelector('.mm-node');
+  const dom = mmNodeDom.get(id);
+  const button = dom && dom.button;
   if (button) {
-    mmNodesEl.querySelectorAll('.mm-node').forEach(function (other) {
-      other.tabIndex = other === button ? 0 : -1;
+    mmNodeDom.forEach(function (entry) {
+      entry.button.tabIndex = entry.button === button ? 0 : -1;
     });
   }
 
@@ -6061,15 +5944,22 @@ function mmSelect(id, openPanel, opts) {
     mmRenderPanel(node);
     if (!opts || opts.ensureVisible !== false) {
       mmEnsureVisible(id);
+      if (window.innerWidth <= 900) {
+        requestAnimationFrame(function () {
+          if (mmSelected === id && !mmPanel.hidden) mmEnsureVisible(id);
+        });
+      }
     }
   }
   mmStatus.textContent = 'Đã chọn: ' + node.label;
+  updateLogoAffordance();
 }
 
 function mmClearSelection() {
   mmSelected = null;
   mmUpdatePath();
   mmClosePanel();
+  updateLogoAffordance();
 }
 
 function mmToggle(id, force) {
@@ -6130,11 +6020,19 @@ function mmJumpTo(id) {
 
   if (node.depth > 1) mmView.k = Math.max(mmView.k, 0.85);
   mmCenterOn(id, true);
+  if (window.innerWidth <= 900) {
+    requestAnimationFrame(function () {
+      if (mmSelected === id && !mmPanel.hidden) mmCenterOn(id, true);
+    });
+  }
 
   const wrap = mmNodeWrap(id);
   if (wrap) {
+    wrap.classList.remove('is-pulse');
+    void wrap.offsetWidth;
     wrap.classList.add('is-pulse');
-    window.setTimeout(function () { wrap.classList.remove('is-pulse'); }, 2400);
+    window.clearTimeout(wrap._pulseTimer);
+    wrap._pulseTimer = window.setTimeout(function () { wrap.classList.remove('is-pulse'); }, 2400);
   }
 
   mmCloseResults();
@@ -6353,11 +6251,17 @@ function mmRenderPanel(node) {
 }
 
 function mmOpenPanel() {
+  window.clearTimeout(mmPanel._closeTimer);
+  const wasHidden = mmPanel.hidden;
   mmPanel.hidden = false;
   mmApp.classList.add('has-panel');
-  requestAnimationFrame(function () {
+  if (wasHidden) {
+    requestAnimationFrame(function () {
+      mmPanel.classList.add('is-open');
+    });
+  } else {
     mmPanel.classList.add('is-open');
-  });
+  }
   mmPanel.focus({ preventScroll: true });
 }
 
@@ -6367,11 +6271,13 @@ function mmClosePanel() {
     mmUpdatePath();
   }
   if (mmPanel.hidden) return;
+  window.clearTimeout(mmPanel._closeTimer);
   mmPanel.classList.remove('is-open');
   mmApp.classList.remove('has-panel');
-  window.setTimeout(function () {
+  mmPanel._closeTimer = window.setTimeout(function () {
     if (!mmPanel.classList.contains('is-open')) mmPanel.hidden = true;
   }, 300);
+  updateLogoAffordance();
 }
 
 /* ============================================================
@@ -6509,11 +6415,10 @@ function mmBuildSearchIndex() {
 
 function mmSearch(query) {
   const q = mmNormalize(query);
-  const nodes = mmNodesEl.querySelectorAll('.mm-node-wrap');
 
   if (q.length < 2) {
-    nodes.forEach(function (wrap) {
-      wrap.classList.remove('is-match', 'is-branch-match', 'is-dim');
+    mmNodeDom.forEach(function (dom) {
+      dom.wrap.classList.remove('is-match', 'is-branch-match', 'is-dim');
     });
     mmCloseResults();
     return;
@@ -6550,8 +6455,8 @@ function mmSearch(query) {
     }
   });
 
-  nodes.forEach(function (wrap) {
-    const id = wrap.dataset.mmNode;
+  mmNodeDom.forEach(function (dom, id) {
+    const wrap = dom.wrap;
     const visible = !wrap.classList.contains('is-hidden');
     const isDirect = ids.has(id);
     const isAncestor = ancestorMatches.has(id);
@@ -6637,8 +6542,8 @@ function mmClearSearch() {
   mmSearchInput.value = '';
   mmSearchWrap.classList.remove('has-value');
   mmSearchClear.hidden = true;
-  mmNodesEl.querySelectorAll('.mm-node-wrap').forEach(function (wrap) {
-    wrap.classList.remove('is-match', 'is-branch-match', 'is-dim');
+  mmNodeDom.forEach(function (dom) {
+    dom.wrap.classList.remove('is-match', 'is-branch-match', 'is-dim', 'is-pulse');
   });
   mmCloseResults();
 }
@@ -6787,7 +6692,7 @@ function mmBindEvents() {
 
   mmStage.addEventListener('pointerdown', function (event) {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
-    if (event.target.closest('.mm-panel, .mm-hud, .mm-legend, .mm-topbar, .mm-hint, .mm-caret')) return;
+    if (event.target.closest('.mm-panel, .mm-hud, .mm-legend, .mm-topbar, .mm-caret')) return;
 
     if (event.pointerType === 'mouse') {
       pointers.clear();
@@ -6864,7 +6769,7 @@ function mmBindEvents() {
       mmView.x = px - (prevPx - mmView.x) * ratio;
       mmView.y = py - (prevPy - mmView.y) * ratio;
       mmView.k = nextK;
-      mmApplyView(false);
+      mmScheduleView();
       return;
     }
 
@@ -6884,7 +6789,7 @@ function mmBindEvents() {
     mmUserMoved = true;
     mmView.x = pan.vx + dx;
     mmView.y = pan.vy + dy;
-    mmApplyView(false);
+    mmScheduleView();
   });
 
   function endPointer(event) {
@@ -6906,7 +6811,7 @@ function mmBindEvents() {
       setPanningUI(false);
       if (!wasClick) {
         scheduleClearSuppress();
-      } else if (!fromNode && event.type === 'pointerup' && event.target && mmStage.contains(event.target) && !event.target.closest('.mm-panel, .mm-hud, .mm-legend, .mm-topbar, .mm-hint, .mm-caret')) {
+      } else if (!fromNode && event.type === 'pointerup' && event.target && mmStage.contains(event.target) && !event.target.closest('.mm-panel, .mm-hud, .mm-legend, .mm-topbar, .mm-caret')) {
         mmClearSelection();
       }
     }
@@ -6950,8 +6855,7 @@ function mmBindEvents() {
     event.preventDefault();
     const rect = mmStage.getBoundingClientRect();
     const factor = Math.exp(-event.deltaY * 0.0016);
-    mmZoomAt(event.clientX - rect.left, event.clientY - rect.top, factor);
-    mmHint.classList.add('is-faded');
+    mmZoomAt(event.clientX - rect.left, event.clientY - rect.top, factor, true);
   }, { passive: false });
 
   // Bảng chi tiết
@@ -7004,7 +6908,6 @@ function mmBindEvents() {
       else if (action === 'reset') mmResetDiagram();
       else if (action === 'expand') mmExpandAll();
       else if (action === 'collapse') mmCollapseAll();
-      mmHint.classList.add('is-faded');
     });
   });
 
@@ -7016,6 +6919,12 @@ function mmBindEvents() {
 
   const legendToggle = document.getElementById('mm-legend-toggle');
   const legendBox = document.getElementById('mm-legend');
+  function closeLegend() {
+    if (mmLegendList.hidden) return;
+    mmLegendList.hidden = true;
+    if (legendBox) legendBox.classList.remove('is-open');
+    if (legendToggle) legendToggle.setAttribute('aria-expanded', 'false');
+  }
   if (legendToggle) {
     legendToggle.addEventListener('click', function () {
       const open = mmLegendList.hidden;
@@ -7078,6 +6987,7 @@ function mmBindEvents() {
 
   document.addEventListener('click', function (event) {
     if (!mmSearchWrap.contains(event.target)) mmCloseResults();
+    if (legendBox && !legendBox.contains(event.target)) closeLegend();
   });
 
   // Thu nhỏ (nhấp và kéo)
@@ -7104,13 +7014,23 @@ function mmBindEvents() {
   window.addEventListener('pointercancel', stopMiniDrag);
   mmMinimapCanvas.addEventListener('lostpointercapture', stopMiniDrag);
 
-  // Thương hiệu: về sơ đồ, đóng bảng, vừa màn hình
+  // Bấm logo trên sơ đồ: chuyển sang bài học tương ứng với nút đang chọn (hoặc Bài 1)
   document.querySelectorAll('[data-mm-home]').forEach(function (link) {
-    link.addEventListener('click', function () {
-      if (window.location.hash === '#/' || window.location.hash === '') {
-        mmClosePanel();
-        mmClearSearch();
-        mmFit();
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      const target = resolveFullLessonTarget();
+      window.location.hash = target.hash;
+    });
+  });
+
+  // Bấm logo trên thanh tiêu đề bài học: chuyển về sơ đồ tư duy
+  document.querySelectorAll('[data-nav-home]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      if (window.location.hash && window.location.hash !== '#/' && window.location.hash !== '#') {
+        window.location.hash = '#/';
+      } else {
+        showHome();
       }
     });
   });
@@ -7141,6 +7061,8 @@ function mmBindEvents() {
         if (button) button.focus({ preventScroll: true });
       } else if (!mmResults.hidden) {
         mmCloseResults();
+      } else if (!mmLegendList.hidden) {
+        closeLegend();
       }
       return;
     }
@@ -7166,7 +7088,11 @@ function mmBindEvents() {
   let resizeFrame = null;
   function mmHandleResize() {
     if (document.getElementById('home').hidden) return;
+    const w = mmStage.clientWidth;
+    const h = mmStage.clientHeight;
+    if (!w || !h) return;
     const crossedBreakpoint = mmWasNarrow !== null && mmWasNarrow !== mmIsNarrow();
+    if (!crossedBreakpoint && w === mmLastStageSize.w && h === mmLastStageSize.h) return;
     mmLayout();
     if (!mmUserMoved) {
       mmApplyDefaultState();
@@ -7190,10 +7116,6 @@ function mmBindEvents() {
     });
     observer.observe(mmStage);
   }
-
-  window.setTimeout(function () {
-    mmHint.classList.add('is-faded');
-  }, 9000);
 }
 
 /* ============================================================
@@ -7204,20 +7126,19 @@ function mmBoot() {
   mmBooted = true;
 
   mmIndex(mmRoot, null, 0);
-  mmCollapsed = mmDefaultCollapsed(false);
   mmBuildNodes();
   mmBuildLegend();
   mmBindEvents();
   mmApplyDefaultState();
   mmInitialView(false);
   mmRefreshVectorCrispness();
+  updateLogoAffordance();
 
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(function () {
       if (!mmBooted || document.getElementById('home').hidden) return;
       mmLayout();
       if (!mmUserMoved) {
-        mmApplyDefaultState();
         mmInitialView(false);
       }
       mmRefreshVectorCrispness();
@@ -7232,9 +7153,17 @@ function mmEnter() {
     return;
   }
   requestAnimationFrame(function () {
-    mmLayout();
-    mmApplyView(false);
-    mmRefreshVectorCrispness();
+    const stageChanged = mmStage.clientWidth !== mmLastStageSize.w || mmStage.clientHeight !== mmLastStageSize.h;
+    if (stageChanged) {
+      if (!mmUserMoved) {
+        mmApplyDefaultState();
+        mmInitialView(false);
+      } else {
+        mmLayout();
+        mmApplyView(false);
+      }
+      mmRefreshVectorCrispness();
+    }
   });
 }
 
