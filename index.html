@@ -1694,6 +1694,7 @@ body.is-mm-panning * {
 .mm-btn--primary:hover { background: linear-gradient(145deg, #12877e, #0a615b); color: #fff; }
 .mm-btn.is-on { background: var(--teal-50); border-color: #9fd2cc; color: var(--teal-700); }
 .mm-btn--icon { padding: 0; }
+.mm-mobile-reset { display: none; }
 .mm-sep { width: 1px; height: 22px; background: var(--line); margin: 0 2px; }
 
 /* ---------- Khung vẽ ---------- */
@@ -2400,21 +2401,40 @@ body.is-mm-panning * {
     right: 10px;
     max-height: min(56vh, 360px);
   }
-  .mm-actions { gap: 0; }
+  .mm-actions { gap: 6px; }
   .mm-actions [data-mm-act="expand"],
   .mm-actions [data-mm-act="collapse"],
   .mm-actions .mm-sep {
     display: none;
   }
-  .mm-btn--primary {
+  .mm-mobile-reset {
+    position: relative;
+    display: inline-flex;
     height: 36px;
-    padding: 0 10px;
-    gap: 5px;
+    padding: 0 9px;
+    gap: 4px;
     border-radius: 10px;
-    font-size: 0.74rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
   }
-  .mm-btn--primary svg { width: 15px; height: 15px; }
-  .mm-btn--label { display: inline; }
+  .mm-mobile-reset svg { width: 14px; height: 14px; }
+  .mm-btn--primary {
+    position: relative;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+    padding: 0;
+    gap: 0;
+    border-radius: 10px;
+  }
+  .mm-mobile-reset::after,
+  .mm-btn--primary::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+  }
+  .mm-btn--primary svg { width: 17px; height: 17px; }
+  .mm-btn--label { display: none; }
   .mm-legend {
     left: 8px;
     right: auto;
@@ -2515,7 +2535,9 @@ body.is-mm-panning * {
 
 @media (max-width: 400px) {
   .mm-topbar { gap: 6px; padding: 6px 8px; }
-  .mm-btn--primary { padding: 0 8px; font-size: 0.7rem; }
+  .mm-actions { gap: 5px; }
+  .mm-mobile-reset { height: 34px; padding: 0 7px; font-size: 0.68rem; }
+  .mm-btn--primary { width: 34px; min-width: 34px; height: 34px; }
   .mm-legend-toggle { padding: 6px 7px; font-size: 0.58rem; }
   .mm-viewbtn { padding: 0 6px; font-size: 0.58rem; }
   .mm-zoom button { min-width: 24px; }
@@ -2627,7 +2649,11 @@ body.is-mm-panning * {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 9H4V4M15 9h5V4M9 15H4v5M15 15h5v5"/><circle cx="12" cy="12" r="2.2"/></svg>
           </button>
           <span class="mm-sep" aria-hidden="true"></span>
-          <button class="mm-btn mm-btn--primary" type="button" data-open-quiz>
+          <button class="mm-btn mm-mobile-reset" type="button" data-mm-act="reset" title="Đặt lại sơ đồ và khung nhìn" aria-label="Đặt lại sơ đồ và khung nhìn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>Đặt lại</span>
+          </button>
+          <button class="mm-btn mm-btn--primary" type="button" data-open-quiz title="Ôn tập nhanh" aria-label="Ôn tập nhanh">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h14v18l-7-4-7 4Z"/><path d="M9 8h6M9 12h4"/></svg>
             <span class="mm-btn--label">Ôn tập</span>
           </button>
