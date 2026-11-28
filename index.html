@@ -1431,6 +1431,182 @@ td strong { color: var(--ink); }
 }
 
 /* ============================================================
+   10b. VIDEO MINH HỌA – BẤM ĐỂ PHÁT NGAY TRÊN TRANG
+   ============================================================ */
+.video-feature {
+  margin: 22px 0 0;
+  background: linear-gradient(135deg, #ffffff 0%, var(--surface-tint) 100%);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.video-feature:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.video-feature-btn {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  align-items: stretch;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.vf-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #0b2a2e;
+  overflow: hidden;
+}
+.vf-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.45s ease;
+}
+.video-feature-btn:hover .vf-thumb img,
+.video-feature-btn:focus-visible .vf-thumb img { transform: scale(1.05); }
+.vf-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4, 32, 30, 0) 45%, rgba(4, 32, 30, 0.55) 100%);
+  pointer-events: none;
+}
+
+.vf-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--teal-700);
+  box-shadow: 0 12px 26px -12px rgba(0, 0, 0, 0.7);
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.vf-play svg { width: 22px; height: 22px; margin-left: 3px; }
+.video-feature-btn:hover .vf-play,
+.video-feature-btn:focus-visible .vf-play {
+  background: #fff;
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.vf-dur {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 2;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(4, 32, 30, 0.82);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.vf-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 18px 22px;
+  min-width: 0;
+}
+.vf-kicker {
+  color: var(--teal-700);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.vf-title {
+  color: var(--ink);
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+}
+.vf-meta { color: var(--muted); font-size: 0.8rem; }
+.vf-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: var(--teal-700);
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+.vf-cta svg { width: 15px; height: 15px; }
+
+.video-feature.is-playing {
+  background: #041f1d;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 24px 60px -38px rgba(0, 0, 0, 0.9);
+}
+.vf-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.vf-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.vf-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #06231f;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.78rem;
+}
+.vf-foot span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.vf-foot a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .video-feature-btn { grid-template-columns: 1fr; }
+  .vf-body { padding: 14px 16px 16px; }
+  .vf-play { width: 48px; height: 48px; }
+  .vf-play svg { width: 19px; height: 19px; }
+  .video-feature { margin-top: 18px; }
+}
+
+/* ============================================================
    11. KHÔNG GIAN SƠ ĐỒ TƯ DUY TƯƠNG TÁC
    ============================================================ */
 body.is-map { overflow: hidden; }
@@ -2559,7 +2735,7 @@ body.is-mm-panning * {
 }
 
 @media print {
-  .site-header, .site-footer, .page-topbar, .toc-card, .page-pager, .modal, .scroll-progress { display: none !important; }
+  .site-header, .site-footer, .page-topbar, .toc-card, .page-pager, .modal, .scroll-progress, .video-feature { display: none !important; }
   body { background: #fff; }
   main { padding-top: 0; }
   .content-view { max-width: 100%; padding: 0; }
@@ -2754,6 +2930,24 @@ body.is-mm-panning * {
         </p>
       </header>
 
+      <figure class="video-feature" data-video-id="vqvsMYOylZ4" data-video-title="Hóa học 12 – Bài 12: Đại cương về polymer (Kết nối tri thức)">
+        <button class="video-feature-btn" type="button" aria-label="Phát video: Đại cương về polymer – khái niệm, danh pháp">
+          <span class="vf-thumb">
+            <img src="https://i.ytimg.com/vi/vqvsMYOylZ4/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg></span>
+            <span class="vf-dur">23:25</span>
+          </span>
+          <span class="vf-body">
+            <span class="vf-kicker">Video minh họa · Nhánh 01</span>
+            <span class="vf-title">Đại cương về polymer – khái niệm, danh pháp</span>
+            <span class="vf-meta">VietJack THPT Official · 23:25</span>
+            <span class="vf-cta">Bấm để xem ngay trên trang
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </span>
+        </button>
+      </figure>
+
       <div class="content-grid">
         <aside class="toc-card">
           <p class="toc-label">Mục lục bài học</p>
@@ -2947,6 +3141,24 @@ body.is-mm-panning * {
         </p>
       </header>
 
+      <figure class="video-feature" data-video-id="U0BENZgP0AQ" data-video-title="Cấu trúc và tính chất vật lí của polymer">
+        <button class="video-feature-btn" type="button" aria-label="Phát video: Cấu trúc và tính chất vật lí của polymer">
+          <span class="vf-thumb">
+            <img src="https://i.ytimg.com/vi/U0BENZgP0AQ/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg></span>
+            <span class="vf-dur">2:45</span>
+          </span>
+          <span class="vf-body">
+            <span class="vf-kicker">Video minh họa · Nhánh 02</span>
+            <span class="vf-title">Vì sao polymer lại dẻo, đàn hồi hay dai bền?</span>
+            <span class="vf-meta">Manabie Vietnam · 2:45</span>
+            <span class="vf-cta">Bấm để xem ngay trên trang
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </span>
+        </button>
+      </figure>
+
       <div class="content-grid">
         <aside class="toc-card">
           <p class="toc-label">Mục lục bài học</p>
@@ -3062,6 +3274,24 @@ body.is-mm-panning * {
           độ dài. Ba nhóm phản ứng này quyết định độ bền và khả năng tái chế của vật liệu.
         </p>
       </header>
+
+      <figure class="video-feature" data-video-id="dU-ExbN1Rm4" data-video-title="Đại cương về polymer – Thầy Phạm Thanh Tùng">
+        <button class="video-feature-btn" type="button" aria-label="Phát video: Tính chất hoá học của polymer">
+          <span class="vf-thumb">
+            <img src="https://i.ytimg.com/vi/dU-ExbN1Rm4/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg></span>
+            <span class="vf-dur">42:22</span>
+          </span>
+          <span class="vf-body">
+            <span class="vf-kicker">Video minh họa · Nhánh 03</span>
+            <span class="vf-title">Cắt mạch, tăng mạch và giữ nguyên mạch polymer</span>
+            <span class="vf-meta">Tuyensinh247 · 42:22</span>
+            <span class="vf-cta">Bấm để xem ngay trên trang
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </span>
+        </button>
+      </figure>
 
       <div class="content-grid">
         <aside class="toc-card">
@@ -3233,6 +3463,24 @@ body.is-mm-panning * {
           Điểm khác biệt cốt lõi nằm ở loại monomer và sản phẩm phụ của phản ứng.
         </p>
       </header>
+
+      <figure class="video-feature" data-video-id="GzrK06YWPP0" data-video-title="Điều chế polymer – phương pháp trùng hợp và trùng ngưng">
+        <button class="video-feature-btn" type="button" aria-label="Phát video: Điều chế polymer bằng trùng hợp và trùng ngưng">
+          <span class="vf-thumb">
+            <img src="https://i.ytimg.com/vi/GzrK06YWPP0/maxresdefault.jpg" alt="" width="1280" height="720" loading="lazy" decoding="async">
+            <span class="vf-play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.14v13.72a1 1 0 0 0 1.5.86l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14Z"/></svg></span>
+            <span class="vf-dur">17:25</span>
+          </span>
+          <span class="vf-body">
+            <span class="vf-kicker">Video minh họa · Nhánh 04</span>
+            <span class="vf-title">Trùng hợp và trùng ngưng khác nhau thế nào?</span>
+            <span class="vf-meta">Hóa học 12 · 17:25</span>
+            <span class="vf-cta">Bấm để xem ngay trên trang
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </span>
+        </button>
+      </figure>
 
       <div class="content-grid">
         <aside class="toc-card">
@@ -6064,6 +6312,49 @@ document.addEventListener('keydown', function (event) {
     event.preventDefault();
     first.focus();
   }
+});
+
+/* ============================================================
+   VIDEO MINH HỌA – BẤM ĐỂ PHÁT NGAY TRONG TRANG
+   ============================================================ */
+document.querySelectorAll('.video-feature[data-video-id]').forEach(function (card) {
+  const btn = card.querySelector('.video-feature-btn');
+  if (!btn) return;
+
+  btn.addEventListener('click', function () {
+    const id = card.dataset.videoId;
+    const title = card.dataset.videoTitle || 'Video minh họa';
+    const watchUrl = 'https://www.youtube.com/watch?v=' + encodeURIComponent(id);
+
+    const frame = document.createElement('div');
+    frame.className = 'vf-frame';
+
+    const iframe = document.createElement('iframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
+      '?autoplay=1&rel=0&hl=vi&modestbranding=1&playsinline=1';
+    iframe.title = title;
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    frame.appendChild(iframe);
+
+    const foot = document.createElement('div');
+    foot.className = 'vf-foot';
+
+    const label = document.createElement('span');
+    label.textContent = 'Video: ' + title;
+
+    const link = document.createElement('a');
+    link.href = watchUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.textContent = 'Mở trên YouTube ↗';
+
+    foot.append(label, link);
+    card.classList.add('is-playing');
+    card.replaceChildren(frame, foot);
+    iframe.focus();
+  }, { once: true });
 });
 
 /* ============================================================
